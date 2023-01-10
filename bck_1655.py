@@ -34,29 +34,56 @@
 # for i in range(n):
 #     print(res[i])
 
+# ------------------------------------------------------------
+# 예시 1
+# 1 5 2 10 -99 7 5
+
+# 예시 2
+# 1, -99
+ 
 import heapq
 import sys
 
 n = int(sys.stdin.readline())
-leftHeap = []   #중간값보다 작은 값,  최대힙,   첫원소: 중간값
+leftHeap = []   #중간값보다 작은 값,  최대힙
 rightHeap = []  #중간값보다 큰 값,    최소힙
 
+
+list = []
 for i in range(n):
     num = int(sys.stdin.readline())
 
     if len(leftHeap) == len(rightHeap):
-        heapq.heappush(leftHeap, -num)
+        heapq.heappush(leftHeap, -num)    #[-5, -4, -3, -2, -1]
     else:
-        heapq.heappush(rightHeap, num)
+        heapq.heappush(rightHeap, num)    #[1, 2, 3, 4, 5]
+
+    # rightHeap이 비어있지 않음 + rightHeap[0]번째 숫자보다 leftHeap[0]번째 숫자가 더 크면
+    if rightHeap and rightHeap[0] < -leftHeap[0]:  
+        leftValue = heapq.heappop(leftHeap)
+        rightValue = heapq.heappop(rightHeap)
+
+        heapq.heappush(leftHeap, -rightValue)
+        heapq.heappush(rightHeap, -leftValue)
+    
+    list.append(-leftHeap[0])
+
+for j in list:
+    print(j)
+#------------------------------------------------------------------
 
 
-for i in range(3):
-	print(-leftHeap[i])
+# rightHeap = []
+# leftHeap = [1,2]
+
+# if rightHeap and 1:
+#     print("0 and 1")
+
+# if leftHeap and 1:
+#     print("1")
 
 
-# print(-leftHeap)
-# print(rightHeap)
-
+# #빈 Strig, Tuple, List => False값을 가짐
 
 
 
